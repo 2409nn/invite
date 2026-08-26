@@ -1,64 +1,43 @@
-<template>
-  <button
-      ref="btnRef"
-      type="button"
-      class="invite-btn"
-      :class="{ 'invite-btn--hover': hovered, 'invite-btn--pressed': pressed }"
-      :aria-label="displayLabel"
-      @pointerenter="onEnter"
-      @pointerleave="onLeave"
-      @pointerdown="pressed = true"
-      @pointerup="pressed = false"
-      @pointercancel="pressed = false"
-      @click="onClick"
-  >
-    <span class="invite-btn__glow" aria-hidden="true"></span>
-    <span class="invite-btn__label">
-      <slot :hovered="hovered">{{ displayLabel }}</slot>
-    </span>
-  </button>
-</template>
-
 <script setup>
-/**
- * GreenButton — кнопка согласия.
- * При наведении становится ярче, немного растёт и мягко пульсирует,
- * всем видом "выпрашивая" клик. Можно передать hoverLabel — текст,
- * который появится вместо обычного при наведении (например, "Ну же!").
- */
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   label: { type: String, default: 'Да' },
-  hoverLabel: { type: String, default: '' }, // например: 'Ну же, нажми!'
+  hoverLabel: { type: String, default: 'Жми' },
 })
 
 const emit = defineEmits(['accept'])
 
 const btnRef = ref(null)
-const hovered = ref(false)
-const pressed = ref(false)
+const label = ref(props.label)
+const isHover = ref(false)
 
-const displayLabel = computed(() => (hovered.value && props.hoverLabel ? props.hoverLabel : props.label))
-
-function onEnter() {
-  hovered.value = true
-}
-function onLeave() {
-  hovered.value = false
-  pressed.value = false
-}
 function onClick() {
   emit('accept')
 }
 </script>
 
+<template>
+  <button
+      ref="btnRef"
+      class="invite-btn"
+      :class="{ 'invite-btn--hover': isHover }"
+      @click="onClick"
+      @mouseenter="() => { isHover = true; label = props.hoverLabel }"
+      @mouseleave="() => { isHover = false; label = props.label }"
+  >
+    <span class="invite-btn__glow" aria-hidden="true"></span>
+    <span class="invite-btn__label"> {{ label }} </span>
+  </button>
+</template>
+
 <style scoped>
 .invite-btn {
-  --accent: #2fae66;
+  --accent: #42d781;
   --accent-hover: #38c975;
-  --glow: rgba(56, 201, 117, 0.55);
+  --glow: rgb(30, 217, 106);
 
+  position: relative;
   appearance: none;
   font-weight: 700;
   color: #fff;
@@ -69,38 +48,28 @@ function onClick() {
   transition: transform 220ms cubic-bezier(.34,1.56,.64,1),
   filter 220ms ease,
   box-shadow 220ms ease;
-  box-shadow: 0 6px 18px -6px var(--glow);
   filter: brightness(1) saturate(1);
-  animation: invite-idle 2.6s ease-in-out infinite;
+  box-shadow: 0 0 0 0;
+  animation: invite-idle-0212a7bb 2.6s ease-in-out infinite;
 }
 
 .invite-btn__glow {
   position: absolute;
-  inset: -6px;
+  inset: 0;
   border-radius: inherit;
   background: radial-gradient(circle, var(--glow), transparent 70%);
   opacity: 0;
-  transition: opacity 220ms ease;
+  transition: opacity 400ms ease;
+  pointer-events: none;
   z-index: -1;
-}
-
-.invite-btn__label {
-  position: relative;
-}
-
-.invite-btn--hover {
-  transform: scale(1.08);
-  filter: brightness(1.15) saturate(1.2);
-  box-shadow: 0 10px 26px -6px var(--glow);
-  animation: invite-hover-pulse 900ms ease-in-out infinite;
 }
 
 .invite-btn--hover .invite-btn__glow {
   opacity: 1;
 }
 
-.invite-btn--pressed {
-  transform: scale(0.97);
+.invite-btn__label {
+  position: relative;
 }
 
 @keyframes invite-idle {
@@ -108,16 +77,10 @@ function onClick() {
   50% { box-shadow: 0 8px 22px -4px var(--glow); }
 }
 
-@keyframes invite-hover-pulse {
-  0%, 100% { transform: scale(1.08); }
-  50% { transform: scale(1.13); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .invite-btn,
-  .invite-btn--hover {
+  .invite-btn {
     animation: none;
-    transition: filter 150ms ease, box-shadow 150ms ease;
+    transition: none;
   }
 }
 </style>
