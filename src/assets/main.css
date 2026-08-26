@@ -1,0 +1,54 @@
+@import './base.css';
+
+:root {
+  --btn-color: #fff;
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: grid;
+  grid-template-rows: auto 40px;
+  grid-template-columns: 1fr;
+  padding: 40px 200px;
+
+  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 100vw;
+  max-width: 100vw;
+}
+
+.indicator__pages {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  width: fit-content;
+  margin: auto;
+}
+
+.indicator__pages .page {
+  list-style: none;
+  background: white;
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  border: 3px solid black;
+}
+
+.indicator__pages .page.active {
+  background-color: black;
+}
+
+button {
+  appearance: none;
+  color: var(--btn-color);
+  padding: 20px 60px;
+  border-radius: 1000px;
+  border: 2px solid white;
+  font-size: 24px;
+  font-weight: 700;
+}
