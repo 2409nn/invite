@@ -18,7 +18,7 @@
   }
 
   const onAgree = () => {
-    router.push({ path: "/place" });
+    router.push({ path: "/date" });
   }
 
 </script>
