@@ -33,15 +33,11 @@ function onClick() {
 
 <style scoped>
 .invite-btn {
-  --accent: #42d781;
-  --accent-hover: #38c975;
-  --glow: rgb(30, 217, 106);
-
   position: relative;
   appearance: none;
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(180deg, var(--accent-hover), var(--accent));
+  background: linear-gradient(180deg, var(--green-accent-hover), var(--green-accent));
   cursor: pointer;
   isolation: isolate;
   transform: scale(1);
@@ -57,7 +53,7 @@ function onClick() {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(circle, var(--glow), transparent 70%);
+  background: radial-gradient(circle, var(--green-glow), transparent 70%);
   opacity: 0;
   transition: opacity 400ms ease;
   pointer-events: none;
@@ -73,8 +69,8 @@ function onClick() {
 }
 
 @keyframes invite-idle {
-  0%, 100% { box-shadow: 0 6px 18px -6px var(--glow); }
-  50% { box-shadow: 0 8px 22px -4px var(--glow); }
+  0%, 100% { box-shadow: 0 6px 18px -6px var(--green-glow); }
+  50% { box-shadow: 0 8px 22px -4px var(--green-glow); }
 }
 
 @media (prefers-reduced-motion: reduce) {

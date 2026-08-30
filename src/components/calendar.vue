@@ -1,43 +1,46 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 
+// --- ВЗАИМОДЕЙСТВИЯ КОМПОНЕНТОВ ---
 const props = defineProps({
-  modelValue: { type: Object, default: null },
+  modelValue: { type: Object, default: () => ({}) },
 })
 const emit = defineEmits(['update:modelValue'])
 
+// --- СОСТОЯНИЯ ---
 const selectedDay  = ref(null);
 const selectedHour = ref(18);
 const selectedMin  = ref('00');
 const selectedDur  = ref(null);
 
+// --- КОНСТАНТЫ ---
 const OFFSET   = 2;
 const DAYS     = 31;
 const WEEKDAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 const MAX_LATE = 22;
 const DURATIONS = [1, 2, 3, 4, 6];
 const allowedDurations = ref([]);
-
 const HOURS    = Array.from({ length: 12 }, (_, i) => i + 8);
-
 const dayOfWeekNames = ['понедельник','вторник','среда','четверг','пятница','суббота','воскресенье'];
 
 function dow(day) {
-  return (OFFSET + day - 1) % 7
+  return (OFFSET + day - 1) % 7;
 }
 
 function isWeekend(day) {
-  const d = dow(day)
-  return d === 5 || d === 6
+  const d = dow(day);
+  return d === 5 || d === 6;
 }
 
 const appointment = computed(() => {
-  if (!selectedDay.value || !selectedDur.value) return null
+  if (!selectedDay.value) return null;
   return {
-    date:     `${selectedDay.value} октября`,
-    weekday:  dayOfWeekNames[dow(selectedDay.value)],
-    time:     `${String(selectedHour.value).padStart(2,'0')}:${selectedMin.value}`,
-    duration: selectedDur.value,
+    date: `${selectedDay.value} октября`,
+    weekday: dayOfWeekNames[dow(selectedDay.value)],
+    selectedHour: selectedHour.value,
+    selectedMin: selectedMin.value,
+    selectedDur: selectedDur.value,
+    time: `${String(selectedHour.value).padStart(2,'0')}:${selectedMin.value}`,
   }
 })
 
@@ -51,42 +54,26 @@ function selectDay(day) {
   selectedDay.value = day;
   clearTimeData();
   save();
-
 }
 
 function selectDur(h) {
-  selectedDur.value = h
-  save()
+  selectedDur.value = h;
+  save();
 }
 
 function save() {
-  if (!appointment.value) return
-  emit('update:modelValue', { ...appointment.value })
+  if (!appointment.value) return;
+  emit('update:modelValue', { ...appointment.value });
 }
 
 watch(selectedHour, (newHour) => {
-  // Обновляется допустимая продолжительность
   allowedDurations.value = DURATIONS.filter((hour) => newHour + hour <= MAX_LATE);
   selectedDur.value = null;
-}, {immediate: true})
-
+  save();
+}, { immediate: true });
 </script>
 
 <template>
-  <div class="cal-wrap">
-
-    <div class="info-box">
-      <template v-if="appointment">
-        <span class="info-date">
-          <i class="ti ti-calendar-heart" aria-hidden="true"></i>
-          {{ appointment.date }}, {{ appointment.weekday }}
-        </span>
-        <span class="info-time">
-          С {{ `${selectedHour}:${selectedMin}` }} до {{ `${selectedHour + Number(selectedDur)}:${selectedMin}` }}
-        </span>
-      </template>
-      <span v-else class="info-hint">Выберите дату</span>
-    </div>
 
     <div class="calendar">
       <div class="cal-title">Октябрь</div>
@@ -141,41 +128,9 @@ watch(selectedHour, (newHour) => {
       </div>
     </Transition>
 
-  </div>
 </template>
 
 <style scoped>
-.cal-wrap {
-  max-width: 360px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-family: inherit;
-}
-
-.info-box {
-  background: #f7f7f5;
-  border-radius: 12px;
-  border: 1px solid #e8e8e4;
-  padding: 12px 16px;
-  min-height: 52px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-}
-.info-hint { font-size: 14px; color: #aaa; }
-.info-date {
-  font-size: 15px;
-  font-weight: 500;
-  color: #1a1a1a;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.info-date i { color: #4f7ef8; font-size: 16px; }
-.info-time { font-size: 13px; color: #777; }
 
 .calendar {
   background: #fff;
@@ -300,6 +255,7 @@ watch(selectedHour, (newHour) => {
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.13s cubic-bezier(.34,1.56,.64,1);
 }
+
 .dur-btn:hover {
   background: var(--hover-color);
   color: #4f7ef8;
