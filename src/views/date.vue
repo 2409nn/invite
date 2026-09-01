@@ -15,8 +15,10 @@ const btnClickHandler = () => router.push({ path: 'last' })
 </script>
 
 <template>
-  <meme :src="cat" />
-  <h1>ВЫБЕРЕМ <u>ДАТУ...</u></h1>
+  <div class="question">
+    <meme :src="cat" />
+    <h1>ВЫБЕРЕМ <u>ДАТУ...</u></h1>
+  </div>
 
   <div class="cal-wrap">
     <div class="info-box">

@@ -20,6 +20,14 @@ main {
   max-height: 100vh;
   min-width: 100vw;
   max-width: 100vw;
+
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5vh 0;
 }
 
 .indicator__pages {
@@ -52,4 +60,39 @@ button {
   border: 2px solid white;
   font-size: 24px;
   font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  h1 {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 800px) {
+  .meme {
+    height: 250px !important;
+    width: 250px !important;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .stage {
+    flex-direction: column;
+    height: auto !important;
+  }
+
+  .stage__negative, .stage__positive {
+    width: 100% !important;
+  }
+
+  .dodge-btn {
+    width: 100% !important;
+  }
+
+  .invite-btn {
+    width: 100% !important;
+  }
 }

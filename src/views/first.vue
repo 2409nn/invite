@@ -24,8 +24,10 @@
 </script>
 
 <template>
-  <meme :src="sprashivaushiyKot" />
-  <h1>КАК НАСЧЕТ СХОДИТЬ <u>КУДА-ТО ВДВОЕМ?</u><br>👉👈</h1>
+  <div class="question">
+    <meme :src="sprashivaushiyKot" />
+    <h1>КАК НАСЧЕТ СХОДИТЬ <u>КУДА-ТО ВДВОЕМ?</u><br>👉👈</h1>
+  </div>
   <div ref="stage" class="stage" style="position: relative; height: 220px">
     <div class="stage__negative"> <RedButton :container="stage" label="Неа" @click="onDeny" /> </div>
     <div class="stage__positive"> <greenButton label="О давай" @click="onAgree" /> </div>
@@ -36,22 +38,23 @@
 <style scoped lang="scss">
 
   .stage {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    width: 700px;
+    display: flex;
+    max-width: 700px;
     margin: auto;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 
     &__positive {
       width: fit-content;
       height: fit-content;
-      margin: auto;
     }
 
     &__negative {
       width: fit-content;
       height: fit-content;
-      margin: auto;
     }
+
   }
 
 </style>
