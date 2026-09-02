@@ -28,7 +28,12 @@ main {
   flex-direction: column;
   justify-content: space-between;
   padding: 5vh 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
+
+#content::-webkit-scrollbar { display: none; }
+
 
 .indicator__pages {
   display: flex;
@@ -75,6 +80,10 @@ button {
     width: 250px !important;
   }
 
+  main {
+    padding: 20px;
+  }
+
   h1 {
     font-size: 32px;
   }
@@ -82,6 +91,7 @@ button {
   .stage {
     flex-direction: column;
     height: auto !important;
+    margin: 0 !important;
   }
 
   .stage__negative, .stage__positive {
@@ -94,5 +104,12 @@ button {
 
   .invite-btn {
     width: 100% !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .cal-wrap {
+    max-width: 100% !important;
+    margin: 0 !important;
   }
 }

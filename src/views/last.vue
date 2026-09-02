@@ -26,7 +26,7 @@ async function copyCode() {
 
     <div class="code-wrap">
       <span class="code" :class="{ copied }" @click="copyCode">
-        {{ copied ? 'Скопировано' : code }}
+        {{ copied ? 'Готово' : code }}
       </span>
       <div class="hint">
         <svg class="arrow" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,6 +40,10 @@ async function copyCode() {
 </template>
 
 <style scoped>
+
+.question {
+  margin: auto;
+}
 
 .code-wrap {
   display: flex;
