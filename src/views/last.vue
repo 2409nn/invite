@@ -22,7 +22,7 @@ async function copyCode() {
 <template>
   <div class="question">
     <meme :src="catImg" />
-    <h1 class="title">ТЕПЕРЬ ПРИШЛИ МНЕ<br><u>В ЛС ЭТОТ КОД:</u></h1>
+    <h1 class="title">ТЕПЕРЬ ПРИШЛИ МНЕ<u>В ЛС ЭТОТ КОД:</u></h1>
 
     <div class="code-wrap">
       <span class="code" :class="{ copied }" @click="copyCode">

@@ -3,6 +3,12 @@
 :root {
   --btn-color: #fff;
   --hover-color: rgba(240, 244, 255, 0.5);
+  --vars-background: #ffffff;
+  --vars-text-color: #000000;
+  --border-color: #ffffff;
+  --text-color: #000000;
+  --blue-color: #0055FF;
+  --blue-border: linear-gradient(45deg, #99BBFF, #689AFF);
 }
 
 #app {
@@ -30,6 +36,42 @@ main {
   padding: 5vh 0;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.vars {
+  display: flex;
+  flex-direction: column;
+  color: var(--vars-text-color);
+  list-style: none;
+  border-radius: 15px;
+  border: 2px solid var(--border-color);
+  padding: 0;
+  overflow: hidden;
+}
+
+.vars li {
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.vars li button {
+  border: none;
+  border-radius: 0;
+  /*background: linear-gradient(90deg, #993ecb, #2d75ff);*/
+  background: black;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  padding: 15px 20px;
+  font-size: 20px;
+  font-weight: 500;
+  white-space: wrap;
+
+}
+
+.vars li button:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #ffffff;
 }
 
 #content::-webkit-scrollbar { display: none; }
