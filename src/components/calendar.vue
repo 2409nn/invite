@@ -135,7 +135,7 @@ watch(selectedHour, (newHour) => {
 .calendar {
   background: #fff;
   border-radius: 12px;
-  border: 1px solid #e8e8e4;
+  border: 1px solid var(--border-color);
   padding: 16px 12px 12px;
 }
 
@@ -199,7 +199,7 @@ watch(selectedHour, (newHour) => {
 .time-section {
   background: #fff;
   border-radius: 12px;
-  border: 1px solid #e8e8e4;
+  border: 1px solid var(--border-color);
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
@@ -225,7 +225,7 @@ watch(selectedHour, (newHour) => {
 .selects select {
   flex: 1;
   height: 36px;
-  border: 1px solid #e8e8e4;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   background: #f7f7f5;
   color: #1a1a1a;
@@ -247,7 +247,7 @@ watch(selectedHour, (newHour) => {
 .dur-btn {
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid #e8e8e4;
+  border: 1px solid var(--border-color);
   background: #f7f7f5;
   color: #555;
   font-size: 13px;

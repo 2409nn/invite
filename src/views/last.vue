@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import meme from '@/components/meme.vue'
-import catImg from '@/assets/imgs/cat.jpg' // замени на свою картинку
+import catImg from '@/assets/imgs/cat.jpg'
+import { saveInvite } from "../fb/commands"
+import { onMounted } from "vue";
 
 const code = ref<string>('')
 const copied = ref(false)
@@ -10,19 +12,33 @@ const generateCode = () => {
   return Math.floor(Math.random() * 1000000).toString().padStart(6, '0')
 }
 
-code.value = generateCode()
-
 async function copyCode() {
   await navigator.clipboard.writeText(code.value)
   copied.value = true
   setTimeout(() => copied.value = false, 2000)
 }
+
+onMounted(async () => {
+  code.value = generateCode()
+
+  const place = JSON.parse(sessionStorage.getItem('place') || 'null')
+  const date  = JSON.parse(sessionStorage.getItem('date')  || 'null')
+
+  await saveInvite({
+    code: code.value,
+    place,
+    ...date,
+  }, code.value
+  )
+})
+
+
 </script>
 
 <template>
   <div class="question">
     <meme :src="catImg" />
-    <h1 class="title">ТЕПЕРЬ ПРИШЛИ МНЕ<u>В ЛС ЭТОТ КОД:</u></h1>
+    <h1 class="title">ТЕПЕРЬ ПРИШЛИ МНЕ<br/><u>В ЛС ЭТОТ КОД:</u></h1>
 
     <div class="code-wrap">
       <span class="code" :class="{ copied }" @click="copyCode">

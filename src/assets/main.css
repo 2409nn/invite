@@ -5,10 +5,10 @@
   --hover-color: rgba(240, 244, 255, 0.5);
   --vars-background: #ffffff;
   --vars-text-color: #000000;
-  --border-color: #ffffff;
   --text-color: #000000;
   --blue-color: #0055FF;
   --blue-border: linear-gradient(45deg, #99BBFF, #689AFF);
+  --border-color: #e8e8e4;
 }
 
 #app {
@@ -23,10 +23,7 @@ main {
   padding: 40px 200px;
 
   min-height: 100vh;
-  max-height: 100vh;
   min-width: 100vw;
-  max-width: 100vw;
-
 }
 
 #content {
@@ -36,6 +33,21 @@ main {
   padding: 5vh 0;
   overflow-x: hidden;
   overflow-y: scroll;
+  align-items: center;
+}
+
+#indicator {
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  padding: 10px;
+  border-radius: 50px;
 }
 
 .vars {
@@ -110,6 +122,20 @@ button {
   white-space: nowrap;
 }
 
+.cal-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--green-accent);
+  transition: color 0.23s;
+}
+
+.cal-btn:hover {
+  color: var(--green-accent-hover);
+  cursor: pointer;
+  transition: color 0.23s;
+}
+
 @media (max-width: 1200px) {
   h1 {
     font-size: 48px;
@@ -149,9 +175,23 @@ button {
   }
 }
 
+@media (max-width: 450px) {
+  .answer__selected-title {
+    font-size: 16px !important;
+  }
+
+  .answer__var-title {
+    font-size: 20px !important;
+  }
+}
+
 @media (max-width: 400px) {
   .cal-wrap {
     max-width: 100% !important;
     margin: 0 !important;
+  }
+
+  .answer__var-title {
+    font-size: 14px !important;
   }
 }

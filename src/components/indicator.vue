@@ -18,7 +18,11 @@
 <template>
   <div class="indicator">
     <ul class="indicator__pages">
-      <li v-for="page in pages" class="page" :id="page.name" :class="{ active: route.name === page.name }"></li>
+      <li v-for="page in pages"
+          class="page"
+          :id="page.name"
+          :class="{ active: route.name === page.name }"
+      ></li>
     </ul>
   </div>
 </template>

@@ -5,12 +5,29 @@ import cat from "@/assets/imgs/images.jpeg";
 import meme from "../components/meme.vue"
 import calendar from "../components/calendar.vue"
 import { useRouter } from "vue-router";
+import date from "@/views/date.vue";
 
 const router = useRouter()
 
 const calendarData = ref(null);
 
-const btnClickHandler = () => router.push({ path: 'last' })
+const btnClickHandler = () => {
+  const d = calendarData.value
+  if (!d) return
+
+  const endHour = d.selectedHour + d.selectedDur
+  const min = d.selectedMin
+
+  const humanReadable = `${d.date} (${d.weekday}), с ${d.selectedHour}:${min} до ${endHour}:${min}`
+
+  const dateToSave = {
+    ...d,
+    humanReadable,
+  }
+
+  sessionStorage.setItem('date', JSON.stringify(dateToSave))
+  router.push({ path: '/last' })
+}
 
 </script>
 
@@ -58,24 +75,11 @@ const btnClickHandler = () => router.push({ path: 'last' })
   font-family: inherit;
 }
 
-.cal-btn {
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--green-accent);
-  transition: color 0.23s;
-}
-
-.cal-btn:hover {
-  color: var(--green-accent-hover);
-  cursor: pointer;
-  transition: color 0.23s;
-}
 
 .info-box {
   background: #f7f7f5;
   border-radius: 12px;
-  border: 1px solid #e8e8e4;
+  border: 1px solid var(--border-color);
   padding: 12px 16px;
   min-height: 52px;
   display: flex;

@@ -5,36 +5,32 @@ import meme from "@/components/meme.vue"
 import Input from "@/components/Input.vue"
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import checkbox from "@/components/checkbox.vue"
 
 const router = useRouter();
 
-const places = [
-    'Гулянка пешком по городу, место согласуем',
-    'В ТЦ',
-    'В Ботаническом саду',
-]
-
 const inputText = ref('');
+const selectedVariant = ref(null);
 
-function recordPlace(event) {
-  let place = event.target.textContent;
-
-  if (place) {
-    localStorage.setItem("place", JSON.stringify(place));
-    router.push({path: '/date'});
-  }
-
+function setSelectedVariant (placeName) {
+  selectedVariant.value = selectedVariant.value === placeName ? '' : placeName;
 }
 
-function saveInputValue(event) {
+function recordPlace () {
+  sessionStorage.setItem("place", JSON.stringify(selectedVariant.value));
+  router.push({path: '/date'});
+}
+
+function saveInputValue (event) {
 
   event.preventDefault();
 
   let place = inputText.value;
 
   if (place) {
-    localStorage.setItem("place", JSON.stringify(place));
+    sessionStorage.setItem("place", JSON.stringify(place));
     router.push({path: '/date'});
+
   }
 
   else {
@@ -51,9 +47,33 @@ function saveInputValue(event) {
     <h1>А <u>КУДА</u> ПОЙДЕМ?</h1>
   </div>
   <div class="answer">
-    <ul class="vars">
-      <li v-for="place in places">
-        <button @click="recordPlace">{{ place }}</button>
+
+    <div class="answer__selected" v-if="selectedVariant">
+      <p class="answer__selected-title"><span>твой выбор</span> {{ selectedVariant }}</p>
+      <button class="cal-btn" @click="recordPlace">
+        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM18.4158 9.70405C18.8055 9.31268 18.8041 8.67952 18.4127 8.28984L17.7041 7.58426C17.3127 7.19458 16.6796 7.19594 16.2899 7.58731L10.5183 13.3838L7.19723 10.1089C6.80398 9.72117 6.17083 9.7256 5.78305 10.1189L5.08092 10.8309C4.69314 11.2241 4.69758 11.8573 5.09083 12.2451L9.82912 16.9174C10.221 17.3039 10.8515 17.301 11.2399 16.911L18.4158 9.70405Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <ul class="answer__vars">
+      <li class="answer__var" id="first-var" @click="() => {setSelectedVariant('БОТАНИЧЕСКИЙ САД')}">
+        <checkbox class="answer__var-checkbox" :model-value="selectedVariant === 'БОТАНИЧЕСКИЙ САД'" @update:model-value="() => {}" />
+
+        <div class="answer__var-info">
+          <p class="answer__var-title">БОТАНИЧЕСКИЙ САД</p>
+          <a target="_blank" href="https://go.2gis.com/foNtj" class="answer__var-link"><u>Ссылка на 2gis</u></a>
+        </div>
+      </li>
+
+      <li class="answer__var" id="second-var" @click="() => {setSelectedVariant('ГАЛЕРЕЯ КАСТЕЕВА')}">
+        <checkbox class="answer__var-checkbox" :model-value="selectedVariant === 'ГАЛЕРЕЯ КАСТЕЕВА'" @update:model-value="() => {}" />
+
+        <div class="answer__var-info">
+          <p class="answer__var-title">ГАЛЕРЕЯ КАСТЕЕВА</p>
+          <a target="_blank" href="https://2gis.kz/almaty/firm/9429940000798271?m=76.928968%2C43.232426%2F14.98" class="answer__var-link"><u>Ссылка на 2gis</u></a>
+        </div>
       </li>
     </ul>
 
@@ -61,7 +81,7 @@ function saveInputValue(event) {
       <label class="alter-var__label"> Свой вариант </label>
 
       <div class="alter-var__input-wrap">
-        <Input class="alter-var__input" v-model="inputText" />
+        <Input class="alter-var__input" v-model="inputText" @click="setSelectedVariant('')" />
         <button @click="saveInputValue" class="alter-var__submit">
           <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                width="25px" height="25px" viewBox="0 0 193.187 193.187"
@@ -124,6 +144,7 @@ function saveInputValue(event) {
 
 <style scoped lang="scss">
   .alter-var {
+
     &__label {
       display: block;
       color: var(--text-color);
@@ -173,5 +194,76 @@ function saveInputValue(event) {
       gap: 20px;
       padding: 10px;
     }
+  }
+
+  .answer {
+    width: 100%;
+    max-width: 800px;
+
+    &__selected {
+      padding-bottom: 40px;
+      text-align: center;
+      text-decoration: underline;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+
+      &-title {
+        font-size: 26px;
+        font-weight: 600;
+
+        span {
+          font-weight: 500;
+          font-size: 18px;
+          opacity: 0.6;
+        }
+      }
+    }
+
+    &__vars {
+      padding: 0;
+      margin: 0;
+    }
+
+    #first-var {
+      background: linear-gradient(90deg, #CB83FF, #FF8B8B);
+    }
+
+    #second-var {
+      background: linear-gradient(90deg, #73c0ff, #21bcff);
+    }
+
+    &__var {
+      display: flex;
+      list-style: none;
+      width: 100%;
+      padding: 20px 30px;
+      border-radius: 25px;
+      border: 2px solid var(--border-color);
+      margin-bottom: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &-title {
+        font-weight: 600;
+        font-size: 24px;
+        color: white;
+        display: inline;
+      }
+
+      &-link {
+        display: block;
+        width: fit-content;
+      }
+
+      &-checkbox {
+        padding-right: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
   }
 </style>
