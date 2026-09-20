@@ -1,0 +1,1 @@
+import{f as e,g as t,l as n}from"./index-DtF0v6OW.js";var r=[`src`],i=e({__name:`meme`,props:{src:{type:String,required:!0}},setup(e){return(i,a)=>(t(),n(`img`,{src:e.src,alt:`sukaNeZagruzilos`,class:`meme`},null,8,r))}}),a=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},o=a(i,[[`__scopeId`,`data-v-17296636`]]);export{a as n,o as t};
