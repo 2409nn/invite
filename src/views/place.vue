@@ -1,6 +1,6 @@
 <script setup>
 
-import zagruzkaKot from "@/assets/imgs/300px-Загружающийся_кот_шаблон.jpg";
+import zagruzkaKot from "@/assets/imgs/zagruzka-kot.jpg";
 import meme from "@/components/meme.vue"
 import Input from "@/components/Input.vue"
 import { ref } from "vue";
