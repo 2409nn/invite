@@ -3,15 +3,11 @@
   import sprashivaushiyKot from "../assets/imgs/sprashivaushiyKot.jpg"
   import RedButton from "@/components/redButton.vue";
   import greenButton from "@/components/greenButton.vue";
-  import { ref, onMounted } from "vue";
+  import { ref } from "vue";
   import { useRouter } from "vue-router";
 
   const stage = ref(null);
   const router = useRouter()
-
-  onMounted(() => {
-    console.log(stage);
-  })
 
   const onDeny = () => {
     router.push({ path: "/last" });

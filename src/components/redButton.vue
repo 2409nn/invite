@@ -3,8 +3,14 @@ import {onMounted, onBeforeUnmount, ref, onBeforeUpdate} from "vue";
 
 const props = defineProps({
   label: { type: String, default: 'Нет' },
-  container: { type: Object, required: true },
+  container: { type: Object, default: null },
 });
+
+onMounted(() => {
+  containerEl = props.container?.value ?? props.container;
+  if (isTouch || !containerEl) return;
+  // ...
+})
 
 const emits = defineEmits(["click"]);
 const onClick = () => emits("click");
