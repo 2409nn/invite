@@ -48,9 +48,9 @@ function saveInputValue (event) {
   </div>
   <div class="answer">
 
-    <div class="answer__selected" v-if="selectedVariant">
+    <div class="answer__selected" v-if="selectedVariant" @click="recordPlace">
       <p class="answer__selected-title"><span>твой выбор</span> {{ selectedVariant }}</p>
-      <button class="cal-btn" @click="recordPlace">
+      <button class="cal-btn">
         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM18.4158 9.70405C18.8055 9.31268 18.8041 8.67952 18.4127 8.28984L17.7041 7.58426C17.3127 7.19458 16.6796 7.19594 16.2899 7.58731L10.5183 13.3838L7.19723 10.1089C6.80398 9.72117 6.17083 9.7256 5.78305 10.1189L5.08092 10.8309C4.69314 11.2241 4.69758 11.8573 5.09083 12.2451L9.82912 16.9174C10.221 17.3039 10.8515 17.301 11.2399 16.911L18.4158 9.70405Z" fill="currentColor"/>
         </svg>
@@ -208,6 +208,10 @@ function saveInputValue (event) {
       justify-content: center;
       gap: 20px;
       align-items: center;
+
+      &:hover {
+        cursor: pointer;
+      }
 
       &-title {
         font-size: 26px;
