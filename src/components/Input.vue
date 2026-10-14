@@ -14,7 +14,7 @@ function onInput(event) {
 </script>
 
 <template>
-  <input required ref="input" @input="onInput" type="text" placeholder="Если хз, набери “хз”" />
+  <input required ref="input" @input="onInput" type="text" placeholder="Куда хочш?)" />
 </template>
 
 <style scoped>
