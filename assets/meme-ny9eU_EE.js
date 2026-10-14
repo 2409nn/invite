@@ -1,1 +1,0 @@
-import{c as e,d as t,m as n}from"./index-DOHix3_B.js";var r=[`src`],i=t({__name:`meme`,props:{src:{type:String,required:!0}},setup(t){return(i,a)=>(n(),e(`img`,{src:t.src,alt:`sukaNeZagruzilos`,class:`meme`},null,8,r))}}),a=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},o=a(i,[[`__scopeId`,`data-v-49212b02`]]);export{a as n,o as t};
