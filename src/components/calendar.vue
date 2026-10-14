@@ -28,7 +28,7 @@ const WEEKDAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 const MAX_LATE = 22;
 const DURATIONS = [1, 2, 3, 4, 6];
 const allowedDurations = ref([]);
-const HOURS    = Array.from({ length: 12 }, (_, i) => i + 8);
+const HOURS = Array.from({ length: 12 }, (_, i) => i + 8);
 const dayOfWeekNames = ['понедельник','вторник','среда','четверг','пятница','суббота','воскресенье'];
 
 function dow(day) {
@@ -108,7 +108,7 @@ watch(selectedHour, (newHour) => {
             class="day"
             :class="{
             selected: selectedDay === day,
-            weekend:  isWeekend(day) && selectedDay !== day,
+            weekend: isWeekend(day) && selectedDay !== day,
             past: isPastDay(day),
           }"
             :disabled="isPastDay(day)"
