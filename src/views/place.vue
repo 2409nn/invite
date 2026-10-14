@@ -41,7 +41,7 @@ function saveInputValue (event) {
 </script>
 
 <template>
-
+  <div class="page-root">
   <div class="question">
     <meme :src="zagruzkaKot" />
     <h1>А <u>КУДА</u> ПОЙДЕМ?</h1>
@@ -138,8 +138,7 @@ function saveInputValue (event) {
 
     </form>
   </div>
-
-
+  </div>
 </template>
 
 <style scoped lang="scss">

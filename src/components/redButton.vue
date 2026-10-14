@@ -1,16 +1,10 @@
 <script setup>
-import {onMounted, onBeforeUnmount, ref, onBeforeUpdate} from "vue";
+import {onMounted, onBeforeUnmount, ref} from "vue";
 
 const props = defineProps({
   label: { type: String, default: 'Нет' },
   container: { type: Object, default: null },
 });
-
-onMounted(() => {
-  containerEl = props.container?.value ?? props.container;
-  if (isTouch || !containerEl) return;
-  // ...
-})
 
 const emits = defineEmits(["click"]);
 const onClick = () => emits("click");
@@ -50,7 +44,7 @@ function resetOffset() {
   offsetY.value = 0;
 }
 
-onBeforeUpdate(() => {
+onMounted(() => {
   containerEl = props.container?.value ?? props.container;
   if (isTouch || !containerEl) return;
   containerEl.addEventListener('pointermove', handleMove);

@@ -46,7 +46,7 @@ function onClick() {
   box-shadow 220ms ease;
   filter: brightness(1) saturate(1);
   box-shadow: 0 0 0 0;
-  animation: invite-idle-0212a7bb 2.6s ease-in-out infinite;
+  animation: invite-idle 2.6s ease-in-out infinite;
 }
 
 .invite-btn__glow {

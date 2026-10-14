@@ -5,7 +5,6 @@ import cat from "@/assets/imgs/images.jpeg";
 import meme from "../components/meme.vue"
 import calendar from "../components/calendar.vue"
 import { useRouter } from "vue-router";
-import date from "@/views/date.vue";
 
 const router = useRouter()
 
@@ -32,6 +31,7 @@ const btnClickHandler = () => {
 </script>
 
 <template>
+  <div class="page-root">
   <div class="question">
     <meme :src="cat" />
     <h1>ВЫБЕРЕМ <u>ДАТУ...</u></h1>
@@ -61,7 +61,7 @@ const btnClickHandler = () => {
     </div>
     <calendar v-model="calendarData" />
   </div>
-
+  </div>
 </template>
 
 <style scoped>
@@ -77,7 +77,7 @@ const btnClickHandler = () => {
 
 
 .info-box {
-  background: #f7f7f5;
+  background: var(--surface-muted);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   padding: 12px 16px;
@@ -96,15 +96,15 @@ const btnClickHandler = () => {
   gap: 2px;
 }
 
-.info-hint { font-size: 14px; color: #aaa; }
+.info-hint { font-size: 14px; color: var(--text-faint); }
 .info-date {
   font-size: 15px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-strong);
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.info-date i { color: #4f7ef8; font-size: 16px; }
-.info-time { font-size: 13px; color: #777; }
+.info-date i { color: var(--accent-text); font-size: 16px; }
+.info-time { font-size: 13px; color: var(--text-muted); }
 </style>

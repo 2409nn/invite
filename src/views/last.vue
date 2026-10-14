@@ -46,8 +46,8 @@ onMounted(async () => {
       </span>
       <div class="hint">
         <svg class="arrow" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 35 5 C 20 5, 5 20, 10 40" stroke="#555" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M 5 35 L 10 42 L 17 37" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M 35 5 C 20 5, 5 20, 10 40" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M 5 35 L 10 42 L 17 37" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         </svg>
         <span>Нажми на него<br>чтоб скопировать)</span>
       </div>
@@ -93,7 +93,7 @@ onMounted(async () => {
   display: flex;
   align-items: flex-start;
   gap: 6px;
-  color: #555;
+  color: var(--text-soft);
   font-size: 14px;
   line-height: 1.4;
   margin-top: 4px;

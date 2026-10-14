@@ -13,8 +13,19 @@ const selectedHour = ref(18);
 const selectedMin  = ref('00');
 const selectedDur  = ref(null);
 
+// --- ДАТА ---
+// Календарь всегда показывает октябрь. Если текущий месяц уже позже октября
+// в этом году, значит речь идёт про октябрь следующего года — иначе "сегодня"
+// считается внутри отображаемого октября.
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const calendarYear = today.getMonth() > 9 ? today.getFullYear() + 1 : today.getFullYear();
+
 // --- КОНСТАНТЫ ---
-const OFFSET   = 2;
+// Сколько пустых ячеек перед 1 октября (неделя начинается с понедельника).
+// Считается от реального года: раньше было захардкожено 2 (верно только для 2025).
+const OFFSET   = (new Date(calendarYear, 9, 1).getDay() + 6) % 7;
 const DAYS     = 31;
 const WEEKDAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 const MAX_LATE = 22;
@@ -30,6 +41,15 @@ function dow(day) {
 function isWeekend(day) {
   const d = dow(day);
   return d === 5 || d === 6;
+}
+
+// --- БЛОКИРОВКА ПРОШЕДШИХ ДАТ ---
+function dateForDay(day) {
+  return new Date(calendarYear, 9, day); // месяц 9 = октябрь (0-индексация)
+}
+
+function isPastDay(day) {
+  return dateForDay(day) < today;
 }
 
 const appointment = computed(() => {
@@ -51,6 +71,7 @@ function clearTimeData() {
 }
 
 function selectDay(day) {
+  if (isPastDay(day)) return;
   selectedDay.value = day;
   clearTimeData();
   save();
@@ -91,7 +112,10 @@ watch(selectedHour, (newHour) => {
             :class="{
             selected: selectedDay === day,
             weekend:  isWeekend(day) && selectedDay !== day,
+            past: isPastDay(day),
           }"
+            :disabled="isPastDay(day)"
+            :aria-disabled="isPastDay(day)"
             @click="selectDay(day)"
         >{{ day }}</button>
       </div>
@@ -133,7 +157,7 @@ watch(selectedHour, (newHour) => {
 <style scoped>
 
 .calendar {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   padding: 16px 12px 12px;
@@ -143,7 +167,7 @@ watch(selectedHour, (newHour) => {
   text-align: center;
   font-size: 15px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-strong);
   margin-bottom: 12px;
 }
 
@@ -155,7 +179,7 @@ watch(selectedHour, (newHour) => {
 .weekdays span {
   text-align: center;
   font-size: 12px;
-  color: #bbb;
+  color: var(--text-fainter);
   font-weight: 500;
   padding: 2px 0;
 }
@@ -171,7 +195,7 @@ watch(selectedHour, (newHour) => {
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--text-strong);
   cursor: pointer;
   border: none;
   background: none;
@@ -182,22 +206,34 @@ watch(selectedHour, (newHour) => {
 .day.empty { cursor: default; pointer-events: none; }
 .day:hover:not(.empty):not(.selected) {
   background: var(--hover-color);
-  color: #4f7ef8;
+  color: var(--accent-text);
   transform: scale(1.12);
 }
 .day:active:not(.empty) {
   transform: scale(0.9);
 }
 .day.selected {
-  background: #4f7ef8;
+  background: var(--accent);
   color: #fff;
   transform: scale(1.06);
   z-index: 5;
 }
 .day.weekend { color: #e57373; }
 
+.day.past,
+.day:disabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.day.past:hover,
+.day:disabled:hover {
+  background: none;
+  transform: none;
+}
+
 .time-section {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   padding: 14px 16px;
@@ -213,7 +249,7 @@ watch(selectedHour, (newHour) => {
 }
 .time-row label, .dur-row label {
   font-size: 12px;
-  color: #aaa;
+  color: var(--text-faint);
   font-weight: 500;
 }
 
@@ -227,8 +263,8 @@ watch(selectedHour, (newHour) => {
   height: 36px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: #f7f7f5;
-  color: #1a1a1a;
+  background: var(--surface-muted);
+  color: var(--text-strong);
   font-size: 14px;
   font-family: inherit;
   padding: 0 8px;
@@ -236,8 +272,8 @@ watch(selectedHour, (newHour) => {
   outline: none;
   transition: border-color 0.15s;
 }
-.selects select:focus { border-color: #4f7ef8; }
-.colon { font-size: 18px; color: #bbb; }
+.selects select:focus { border-color: var(--accent); }
+.colon { font-size: 18px; color: var(--text-fainter); }
 
 .dur-pills {
   display: flex;
@@ -248,8 +284,8 @@ watch(selectedHour, (newHour) => {
   padding: 6px 14px;
   border-radius: 999px;
   border: 1px solid var(--border-color);
-  background: #f7f7f5;
-  color: #555;
+  background: var(--surface-muted);
+  color: var(--text-soft);
   font-size: 13px;
   font-family: inherit;
   cursor: pointer;
@@ -258,15 +294,15 @@ watch(selectedHour, (newHour) => {
 
 .dur-btn:hover {
   background: var(--hover-color);
-  color: #4f7ef8;
-  border-color: #c5d4fd;
+  color: var(--accent-text);
+  border-color: var(--accent-soft-border);
   transform: scale(1.06);
 }
 .dur-btn:active { transform: scale(0.93); }
 .dur-btn.active {
-  background: #eef2ff;
-  color: #4f7ef8;
-  border-color: #c5d4fd;
+  background: var(--accent-soft-bg);
+  color: var(--accent-text);
+  border-color: var(--accent-soft-border);
 }
 
 .slide-enter-active { transition: all 0.3s cubic-bezier(.34,1.56,.64,1); }

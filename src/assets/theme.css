@@ -1,0 +1,75 @@
+/* Токены цветов для светлой и тёмной темы.
+   Тема выставляется атрибутом data-theme на <html> (см. src/theme.ts). */
+
+:root {
+  color-scheme: light;
+
+  --surface: #ffffff;
+  --surface-muted: #f7f7f5;
+  --text-strong: #1a1a1a;
+  --text-soft: #555555;
+  --text-muted: #777777;
+  --text-faint: #aaaaaa;
+  --text-fainter: #bbbbbb;
+  --text-disabled: #cccccc;
+
+  --accent: #4f7ef8;
+  --accent-text: #4f7ef8;
+  --accent-soft-bg: #eef2ff;
+  --accent-soft-border: #c5d4fd;
+
+  --indicator-bg: #ffffff;
+  --indicator-border: #d0d0d0;
+  --dot-color: #000000;
+
+  --input-bg: #ffffff;
+  --input-text: #000000;
+  --input-ring: #b2b2b2;
+  --input-focus: #0055ff;
+  --input-placeholder: #757575;
+
+  --meme-border: #ffffff;
+  --meme-shadow: rgba(0, 0, 0, 0.15);
+
+  --card-link: #0000ee;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: linear-gradient(198deg, #2b1a33, #0f2438);
+  --color-text: #f1f1f6;
+  --text-color: #f1f1f6;
+  --vars-background: #1c1c24;
+  --vars-text-color: #f1f1f6;
+  --border-color: #34343f;
+  --hover-color: rgba(79, 126, 248, 0.16);
+
+  --surface: #1c1c24;
+  --surface-muted: #26262f;
+  --text-strong: #ececf3;
+  --text-soft: #b4b4c2;
+  --text-muted: #a0a0ae;
+  --text-faint: #8a8a99;
+  --text-fainter: #7a7a89;
+  --text-disabled: #4a4a57;
+
+  --accent-text: #8ba8ff;
+  --accent-soft-bg: rgba(79, 126, 248, 0.18);
+  --accent-soft-border: rgba(139, 168, 255, 0.4);
+
+  --indicator-bg: #1c1c24;
+  --indicator-border: #3a3a46;
+  --dot-color: #f1f1f6;
+
+  --input-bg: #26262f;
+  --input-text: #f1f1f6;
+  --input-ring: #4a4a57;
+  --input-focus: #5c8dff;
+  --input-placeholder: #9a9aa8;
+
+  --meme-border: rgba(255, 255, 255, 0.14);
+  --meme-shadow: rgba(0, 0, 0, 0.5);
+
+  --card-link: #ffffff;
+}

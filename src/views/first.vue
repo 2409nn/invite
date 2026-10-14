@@ -20,15 +20,16 @@
 </script>
 
 <template>
-  <div class="question">
-    <meme :src="sprashivaushiyKot" />
-    <h1>КАК НАСЧЕТ СХОДИТЬ <u>КУДА-ТО ВДВОЕМ?</u><br>👉👈</h1>
+  <div class="page-root">
+    <div class="question">
+      <meme :src="sprashivaushiyKot" />
+      <h1>КАК НАСЧЕТ СХОДИТЬ <u>КУДА-ТО ВДВОЕМ?</u><br>👉👈</h1>
+    </div>
+    <div ref="stage" class="stage" style="position: relative; height: 220px">
+      <div class="stage__negative"> <RedButton :container="stage" label="Неа" @click="onDeny" /> </div>
+      <div class="stage__positive"> <greenButton label="О давай" @click="onAgree" /> </div>
+    </div>
   </div>
-  <div ref="stage" class="stage" style="position: relative; height: 220px">
-    <div class="stage__negative"> <RedButton :container="stage" label="Неа" @click="onDeny" /> </div>
-    <div class="stage__positive"> <greenButton label="О давай" @click="onAgree" /> </div>
-  </div>
-
 </template>
 
 <style scoped lang="scss">
