@@ -1,11 +1,11 @@
 <script setup>
 
 import zagruzkaKot from "@/assets/imgs/zagruzka-kot.jpg";
-import meme from "@/components/meme.vue"
-import Input from "@/components/Input.vue"
+import meme from "../components/meme.vue"
+import Input from "../components/Input.vue"
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import checkbox from "@/components/checkbox.vue"
+import checkbox from "../components/checkbox.vue"
 
 const router = useRouter();
 
@@ -48,13 +48,23 @@ function saveInputValue (event) {
   </div>
   <div class="answer">
 
-    <div class="answer__selected" v-if="selectedVariant" @click="recordPlace">
+    <div class="answer__confirm" v-if="selectedVariant">
+    <div class="answer__selected" @click="recordPlace">
       <p class="answer__selected-title"><span>твой выбор</span> {{ selectedVariant }}</p>
       <button class="cal-btn">
         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM18.4158 9.70405C18.8055 9.31268 18.8041 8.67952 18.4127 8.28984L17.7041 7.58426C17.3127 7.19458 16.6796 7.19594 16.2899 7.58731L10.5183 13.3838L7.19723 10.1089C6.80398 9.72117 6.17083 9.7256 5.78305 10.1189L5.08092 10.8309C4.69314 11.2241 4.69758 11.8573 5.09083 12.2451L9.82912 16.9174C10.221 17.3039 10.8515 17.301 11.2399 16.911L18.4158 9.70405Z" fill="currentColor"/>
         </svg>
       </button>
+    </div>
+
+    <div class="answer__hint" aria-hidden="true">
+      <svg class="answer__hint-arrow" viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 35 45 C 20 45, 5 30, 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M 5 15 L 10 8 L 17 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span>Нажми на свой выбор, чтобы подтвердить и продолжить</span>
+    </div>
     </div>
 
     <ul class="answer__vars">
@@ -160,7 +170,7 @@ function saveInputValue (event) {
       min-height: 50px;
 
       border-radius: 50%;
-      box-sizing: border-box; /* Гарантирует размер ровно 50x50px вместе с border */
+      box-sizing: border-box;
       padding: 0;
 
       display: flex;
@@ -199,18 +209,42 @@ function saveInputValue (event) {
     width: 100%;
     max-width: 800px;
 
+    &__confirm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding-bottom: 28px;
+    }
+
+    &__hint {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      max-width: 280px;
+      color: var(--text-soft);
+      font-size: 15px;
+      line-height: 1.4;
+      pointer-events: none;
+      animation: hint-in 0.5s 0.15s cubic-bezier(.22, 1, .36, 1) both;
+
+      &-arrow {
+        width: 40px;
+        height: 50px;
+        flex-shrink: 0;
+        margin-top: -2px;
+        //animation: hint-bob 1.4s ease-in-out infinite;
+      }
+    }
+
     &__selected {
-      padding-bottom: 40px;
+      max-width: 100%;
       text-align: center;
       text-decoration: underline;
       display: flex;
       justify-content: center;
       gap: 20px;
       align-items: center;
-
-      &:hover {
-        cursor: pointer;
-      }
 
       &-title {
         font-size: 26px;
@@ -221,6 +255,10 @@ function saveInputValue (event) {
           font-size: 18px;
           opacity: 0.6;
         }
+      }
+      
+      &:hover {
+        cursor: pointer;
       }
     }
 
@@ -260,6 +298,7 @@ function saveInputValue (event) {
       &-link {
         display: block;
         width: fit-content;
+        color: var(--card-link);
       }
 
       &-checkbox {
@@ -268,5 +307,23 @@ function saveInputValue (event) {
       }
     }
 
+  }
+
+  @keyframes hint-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes hint-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+  }
+
+  @media (max-width: 450px) {
+    .answer__hint { font-size: 13px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .answer__hint, .answer__hint-arrow { animation: none; }
   }
 </style>

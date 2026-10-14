@@ -1,7 +1,7 @@
 <script setup>
 
 import {ref} from "vue";
-import cat from "@/assets/imgs/images.jpeg";
+import cat from "../assets/imgs/images.jpeg";
 import meme from "../components/meme.vue"
 import calendar from "../components/calendar.vue"
 import { useRouter } from "vue-router";

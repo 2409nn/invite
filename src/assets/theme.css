@@ -1,5 +1,4 @@
-/* Токены цветов для светлой и тёмной темы.
-   Тема выставляется атрибутом data-theme на <html> (см. src/theme.ts). */
+
 
 :root {
   color-scheme: light;

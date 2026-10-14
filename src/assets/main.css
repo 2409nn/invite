@@ -1,4 +1,5 @@
 @import './base.css';
+@import './theme.css';
 
 :root {
   --btn-color: #fff;
@@ -36,6 +37,15 @@ main {
   align-items: center;
 }
 
+#content > .page-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1 1 auto;
+}
+
 #indicator {
   position: fixed;
   bottom: 10px;
@@ -44,8 +54,8 @@ main {
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
-  background: #ffffff;
-  border: 1px solid #d0d0d0;
+  background: var(--indicator-bg);
+  border: 1px solid var(--indicator-border);
   padding: 10px;
   border-radius: 50px;
   z-index: 100;
@@ -70,7 +80,6 @@ main {
 .vars li button {
   border: none;
   border-radius: 0;
-  /*background: linear-gradient(90deg, #993ecb, #2d75ff);*/
   background: black;
   color: #fff;
   width: 100%;
@@ -100,16 +109,16 @@ main {
 
 .indicator__pages .page {
   list-style: none;
-  background: white;
+  background: var(--indicator-bg);
   border-radius: 50%;
   height: 12px;
   width: 12px;
   margin: 0 5px;
-  border: 3px solid black;
+  border: 3px solid var(--dot-color);
 }
 
 .indicator__pages .page.active {
-  background-color: black;
+  background-color: var(--dot-color);
 }
 
 button {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import meme from '@/components/meme.vue'
-import catImg from '@/assets/imgs/cat.jpg'
+import meme from '../components/meme.vue'
+import catImg from '../assets/imgs/cat.jpg'
 import { saveInvite } from "../fb/commands"
 import { onMounted } from "vue";
 

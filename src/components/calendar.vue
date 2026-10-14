@@ -9,22 +9,19 @@ const emit = defineEmits(['update:modelValue'])
 
 // --- СОСТОЯНИЯ ---
 const selectedDay  = ref(null);
-const selectedHour = ref(18);
+const selectedHour = ref(15);
 const selectedMin  = ref('00');
 const selectedDur  = ref(null);
 
 // --- ДАТА ---
-// Календарь всегда показывает октябрь. Если текущий месяц уже позже октября
-// в этом году, значит речь идёт про октябрь следующего года — иначе "сегодня"
-// считается внутри отображаемого октября.
+
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 const calendarYear = today.getMonth() > 9 ? today.getFullYear() + 1 : today.getFullYear();
 
 // --- КОНСТАНТЫ ---
-// Сколько пустых ячеек перед 1 октября (неделя начинается с понедельника).
-// Считается от реального года: раньше было захардкожено 2 (верно только для 2025).
+
 const OFFSET   = (new Date(calendarYear, 9, 1).getDay() + 6) % 7;
 const DAYS     = 31;
 const WEEKDAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
@@ -45,7 +42,7 @@ function isWeekend(day) {
 
 // --- БЛОКИРОВКА ПРОШЕДШИХ ДАТ ---
 function dateForDay(day) {
-  return new Date(calendarYear, 9, day); // месяц 9 = октябрь (0-индексация)
+  return new Date(calendarYear, 9, day); // месяц 9 = октябрь
 }
 
 function isPastDay(day) {
@@ -65,7 +62,7 @@ const appointment = computed(() => {
 })
 
 function clearTimeData() {
-  selectedHour.value = 18;
+  selectedHour.value = 15;
   selectedMin.value = '00';
   selectedDur.value = null;
 }
