@@ -51,7 +51,6 @@ function onClick() {
   outline-offset: 3px;
 }
 
-/* Подписи: "О давай" уезжает вверх, "Жми" выезжает снизу */
 .invite-btn__labels {
   position: relative;
   display: grid;
